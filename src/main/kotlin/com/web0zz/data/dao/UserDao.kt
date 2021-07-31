@@ -30,5 +30,15 @@ class UserDao constructor(private val db: DB){
         return false
     }
 
+    fun getByUsernameAndPassword(username: String, password: String): User? {
+        db.find<User>().byIndex("username").use { cursor ->
+            while (cursor.isValid()) {
+                val model = cursor.model()
+                if (model.username == username && model.password == password.hash()) return model
+                else cursor.next()
+            }
+        }
 
+        return null
+    }
 }

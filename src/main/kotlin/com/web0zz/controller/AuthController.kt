@@ -3,7 +3,9 @@ package com.web0zz.controller
 import com.web0zz.auth.JwtConfig
 import com.web0zz.data.dao.UserDao
 import com.web0zz.model.response.AuthResponse
-import io.ktor.features.*
+import com.web0zz.exception.BadRequestException
+import com.web0zz.exception.UnAuthorizedAccessException
+import com.web0zz.utils.isAlphaNumeric
 
 class AuthController constructor(private val userDao: UserDao){
 
@@ -20,10 +22,24 @@ class AuthController constructor(private val userDao: UserDao){
             val user = userDao.addUser(username, password)
             AuthResponse.success(jwt.sign(user.id.toString()), "Registration successful")
         } catch (b: BadRequestException) {
-            AuthResponse.failed(b.message ?: "Failed while registration")
+            AuthResponse.failed(b.message)
         }
     }
 
+    fun login(username: String, password: String): AuthResponse {
+        return try {
+            validateCredentials(username, password)
+
+            val user = userDao.getByUsernameAndPassword(username, password)
+                ?: throw UnAuthorizedAccessException("Invalid credentials")
+
+            AuthResponse.success(jwt.sign(user.id.toString()), "Login successful")
+        } catch (b: BadRequestException) {
+            AuthResponse.failed(b.message)
+        } catch (u: UnAuthorizedAccessException) {
+            AuthResponse.unauthorized(u.message)
+        }
+    }
 
     private fun validateCredentials(username: String, password: String) {
         val message = when {
@@ -37,7 +53,3 @@ class AuthController constructor(private val userDao: UserDao){
     }
 }
 
-private fun String.isAlphaNumeric(): Boolean {
-    // TODO will check not contain special character
-    return true
-}
