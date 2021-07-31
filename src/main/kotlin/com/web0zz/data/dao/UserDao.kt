@@ -1,0 +1,34 @@
+package com.web0zz.data.dao
+
+import com.web0zz.data.model.User
+import com.web0zz.data.util.hash
+import org.kodein.db.DB
+import org.kodein.db.find
+import org.kodein.memory.util.UUID
+
+class UserDao constructor(private val db: DB){
+
+    fun addUser(username: String, password: String): User {
+        val user = User(
+            UUID.randomUUID(),
+            username,
+            password.hash()
+        )
+        db.put(user)
+
+        return user
+    }
+
+    fun isUsernameAvailable(username: String): Boolean {
+        db.find<User>().byIndex("username").use { cursor ->
+            while (cursor.isValid()) {
+                val model = cursor.model()
+                if (model.username == username) return true
+                else cursor.next()
+            }
+        }
+        return false
+    }
+
+
+}
