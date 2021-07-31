@@ -18,6 +18,7 @@ fun Application.registerAuthRoutes(authController: AuthController) {
 }
 
 fun Route.authUser(authController: AuthController) {
+
     route("/auth") {
         post("/register") {
             val authRequest = runCatching { call.receive<AuthRequest>() }.getOrElse {
