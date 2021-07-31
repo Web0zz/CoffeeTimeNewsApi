@@ -1,4 +1,4 @@
-package com.web0zz.data.util
+package com.web0zz.data.local.util
 
 import java.security.MessageDigest
 

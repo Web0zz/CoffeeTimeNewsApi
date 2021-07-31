@@ -1,4 +1,4 @@
-package com.web0zz.data.model
+package com.web0zz.data.local.model
 
 import kotlinx.serialization.Serializable
 import org.kodein.db.model.orm.Metadata

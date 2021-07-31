@@ -1,7 +1,7 @@
 package com.web0zz.controller
 
 import com.web0zz.auth.JwtConfig
-import com.web0zz.data.dao.UserDao
+import com.web0zz.data.local.dao.UserDao
 import com.web0zz.model.response.AuthResponse
 import com.web0zz.exception.BadRequestException
 import com.web0zz.exception.UnAuthorizedAccessException
