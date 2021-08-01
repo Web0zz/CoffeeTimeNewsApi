@@ -33,6 +33,6 @@ open class JwtConfig private constructor(secret: String) {
 
         private const val ISSUER = "http://0.0.0.0:8080"
         private const val AUDIENCE = "http://0.0.0.0:8080"
-        const val CLAIM = "userId"
+        const val CLAIM = "id"
     }
 }

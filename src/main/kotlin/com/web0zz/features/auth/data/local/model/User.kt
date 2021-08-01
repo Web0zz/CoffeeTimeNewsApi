@@ -7,7 +7,7 @@ import org.kodein.memory.util.UUID
 
 @Serializable
 data class User (
-    override val id: UUID,
+    override val id: String,
     val username: String,
     val password: String
 ) : Metadata

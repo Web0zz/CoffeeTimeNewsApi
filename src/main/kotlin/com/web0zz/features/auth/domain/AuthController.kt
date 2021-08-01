@@ -15,12 +15,12 @@ class AuthController(private val userDao: UserDao) {
         return try {
             validateCredentials(username, password)
 
-            if(!userDao.isUsernameAvailable(username)) {
+            if(userDao.isUsernameAvailable(username)) {
                 throw BadRequestException("Username is not available")
             }
 
             val user = userDao.addUser(username, password)
-            AuthResponse.success(jwt.sign(user.id.toString()), "Registration successful")
+            AuthResponse.success(jwt.sign(user.id), "Registration successful")
         } catch (b: BadRequestException) {
             AuthResponse.failed(b.message)
         }
@@ -33,7 +33,7 @@ class AuthController(private val userDao: UserDao) {
             val user = userDao.getByUsernameAndPassword(username, password)
                 ?: throw UnAuthorizedAccessException("Invalid credentials")
 
-            AuthResponse.success(jwt.sign(user.id.toString()), "Login successful")
+            AuthResponse.success(jwt.sign(user.id), "Login successful")
         } catch (b: BadRequestException) {
             AuthResponse.failed(b.message)
         } catch (u: UnAuthorizedAccessException) {

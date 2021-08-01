@@ -4,13 +4,14 @@ import com.web0zz.features.auth.data.local.model.User
 import com.web0zz.features.auth.data.local.util.hash
 import org.kodein.db.DB
 import org.kodein.db.find
+import org.kodein.db.useModels
 import org.kodein.memory.util.UUID
 
 class UserDao(private val db: DB){
 
     fun addUser(username: String, password: String): User {
         val user = User(
-            UUID.randomUUID(),
+            UUID.randomUUID().toString(),
             username,
             password.hash()
         )
@@ -20,11 +21,9 @@ class UserDao(private val db: DB){
     }
 
     fun isUsernameAvailable(username: String): Boolean {
-        db.find<User>().byIndex("username").use { cursor ->
-            while (cursor.isValid()) {
-                val model = cursor.model()
-                if (model.username == username) return true
-                else cursor.next()
+        db.find<User>().all().useModels {
+            it.forEach { user ->
+                if(user.username == username) return true
             }
         }
         return false
@@ -35,14 +34,11 @@ class UserDao(private val db: DB){
     }
 
     fun getByUsernameAndPassword(username: String, password: String): User? {
-        db.find<User>().byIndex("username").use { cursor ->
-            while (cursor.isValid()) {
-                val model = cursor.model()
-                if (model.username == username && model.password == password.hash()) return model
-                else cursor.next()
+        db.find<User>().all().useModels {
+            it.forEach { user ->
+                if(user.username == username && user.password == password.hash()) return user
             }
         }
-
         return null
     }
 }
