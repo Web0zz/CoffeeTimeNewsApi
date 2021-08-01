@@ -1,4 +1,4 @@
-package com.web0zz.exception
+package com.web0zz.model.exception
 
 object FailMessage {
     const val MESSAGE_MISSING_USER_CREDENTIALS = "Required 'username' or 'password' missing."

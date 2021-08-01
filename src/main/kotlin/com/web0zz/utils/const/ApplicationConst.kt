@@ -1,4 +1,4 @@
-package com.web0zz.const
+package com.web0zz.utils.const
 
 class ApplicationConst {
     companion object {

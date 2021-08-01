@@ -1,7 +1,7 @@
-package com.web0zz.data.local.dao
+package com.web0zz.features.auth.data.local.dao
 
-import com.web0zz.data.local.model.User
-import com.web0zz.data.local.util.hash
+import com.web0zz.features.auth.data.local.model.User
+import com.web0zz.features.auth.data.local.util.hash
 import org.kodein.db.DB
 import org.kodein.db.find
 import org.kodein.memory.util.UUID

@@ -1,4 +1,4 @@
-package com.web0zz.data.local.util
+package com.web0zz.features.auth.data.local.util
 
 import java.security.MessageDigest
 

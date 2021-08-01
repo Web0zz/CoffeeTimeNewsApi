@@ -1,10 +1,9 @@
 package com.web0zz
 
-import com.web0zz.controller.AuthController
+import com.web0zz.features.auth.domain.AuthController
 import io.ktor.application.*
 import com.web0zz.plugins.*
-import com.web0zz.route.registerAuthRoutes
-import org.kodein.db.DB
+import com.web0zz.features.auth.presentation.route.registerAuthRoutes
 import org.koin.ktor.ext.inject
 
 fun main(args: Array<String>): Unit =
@@ -12,13 +11,13 @@ fun main(args: Array<String>): Unit =
 
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-
+    // Configures
     configureSerialization()
     configureKoin()
+    configureJWT()
 
-    val database: DB by inject()
-    configureJWT(database)
+    val authController by inject<AuthController>()
 
-    val authController: AuthController by inject()
+    // Routes
     registerAuthRoutes(authController)
 }

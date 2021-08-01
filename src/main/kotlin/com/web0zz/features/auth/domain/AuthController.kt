@@ -1,13 +1,13 @@
-package com.web0zz.controller
+package com.web0zz.features.auth.domain
 
-import com.web0zz.auth.JwtConfig
-import com.web0zz.data.local.dao.UserDao
+import com.web0zz.config.JwtConfig
+import com.web0zz.features.auth.data.local.dao.UserDao
 import com.web0zz.model.response.AuthResponse
-import com.web0zz.exception.BadRequestException
-import com.web0zz.exception.UnAuthorizedAccessException
+import com.web0zz.model.exception.BadRequestException
+import com.web0zz.model.exception.UnAuthorizedAccessException
 import com.web0zz.utils.isAlphaNumeric
 
-class AuthController (private val userDao: UserDao){
+class AuthController(private val userDao: UserDao) {
 
     private val jwt = JwtConfig.instance
 

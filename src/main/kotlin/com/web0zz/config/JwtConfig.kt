@@ -1,4 +1,4 @@
-package com.web0zz.auth
+package com.web0zz.config
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier

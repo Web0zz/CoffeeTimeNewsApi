@@ -1,15 +1,14 @@
-package com.web0zz.route
+package com.web0zz.features.auth.presentation.route
 
-import com.web0zz.controller.AuthController
-import com.web0zz.exception.BadRequestException
-import com.web0zz.exception.FailMessage
+import com.web0zz.features.auth.domain.AuthController
+import com.web0zz.model.exception.BadRequestException
+import com.web0zz.model.exception.FailMessage
 import com.web0zz.model.request.AuthRequest
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import org.kodein.db.DB
 
 fun Application.registerAuthRoutes(authController: AuthController) {
     routing {
