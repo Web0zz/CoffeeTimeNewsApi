@@ -7,7 +7,7 @@ import com.web0zz.exception.BadRequestException
 import com.web0zz.exception.UnAuthorizedAccessException
 import com.web0zz.utils.isAlphaNumeric
 
-class AuthController constructor(private val userDao: UserDao){
+class AuthController (private val userDao: UserDao){
 
     private val jwt = JwtConfig.instance
 
@@ -52,4 +52,3 @@ class AuthController constructor(private val userDao: UserDao){
         throw BadRequestException(message)
     }
 }
-

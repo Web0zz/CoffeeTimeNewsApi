@@ -6,7 +6,7 @@ import org.kodein.db.DB
 import org.kodein.db.find
 import org.kodein.memory.util.UUID
 
-class UserDao constructor(private val db: DB){
+class UserDao(private val db: DB){
 
     fun addUser(username: String, password: String): User {
         val user = User(
@@ -28,6 +28,10 @@ class UserDao constructor(private val db: DB){
             }
         }
         return false
+    }
+
+    fun isUserExists(id: String): Boolean {
+        return db.find<User>().byId(id).isValid()
     }
 
     fun getByUsernameAndPassword(username: String, password: String): User? {
