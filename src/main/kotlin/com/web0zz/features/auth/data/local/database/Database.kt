@@ -1,6 +1,6 @@
 package com.web0zz.features.auth.data.local.database
 
-import com.web0zz.utils.const.ApplicationConst.Companion.DB_PATH
+import com.web0zz.features.auth.data.local.const.ApplicationConst.Companion.DB_PATH
 import com.web0zz.features.auth.data.local.model.User
 import org.kodein.db.DB
 import org.kodein.db.TypeTable

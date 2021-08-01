@@ -35,6 +35,7 @@ dependencies {
     implementation("org.kodein.db:kodein-leveldb-jni-jvm-linux:$kodein_version")
     implementation("org.kodein.db:kodein-db:$kodein_version")
     implementation("org.kodein.db:kodein-db-serializer-kotlinx:$kodein_version")
+    implementation("org.kodein.db:kodein-db-inmemory:$kodein_version")
 
     // Koin
     implementation("io.insert-koin:koin-core:$koin_version")

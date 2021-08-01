@@ -4,6 +4,7 @@ import com.web0zz.features.auth.domain.AuthController
 import com.web0zz.model.exception.BadRequestException
 import com.web0zz.model.exception.FailMessage
 import com.web0zz.model.request.AuthRequest
+import com.web0zz.model.response.generateHttpResponse
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
@@ -25,9 +26,9 @@ fun Route.authUser(authController: AuthController) {
             }
 
             val authResponse = authController.register(authRequest.username, authRequest.password)
-            // TODO HTTP generator needed here
+            val response = generateHttpResponse(authResponse)
 
-            call.respond(HttpStatusCode.Created, authResponse.message)
+            call.respond(response.code, response.body)
         }
 
         post("/login") {
@@ -36,9 +37,9 @@ fun Route.authUser(authController: AuthController) {
             }
 
             val authResponse = authController.login(authRequest.username, authRequest.password)
-            // TODO HTTP generator needed here
+            val response = generateHttpResponse(authResponse)
 
-            call.respond(HttpStatusCode.Created, authResponse.message)
+            call.respond(response.code, response.body)
         }
     }
 }
