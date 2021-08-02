@@ -5,9 +5,12 @@ import com.web0zz.model.response.ArticleResponse
 
 class ArticleController(private val articleDatasource: ArticleDatasource) {
 
-    suspend fun requestArticle(): ArticleResponse {
+    suspend fun requestArticle(category: String): ArticleResponse {
         return try {
             val article = articleDatasource.getArticle()
+            article.forEach { item ->
+                item.article_category = category
+            }
 
             ArticleResponse.success(article)
         } catch (nullData: NullPointerException) {

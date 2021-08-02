@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class ArticleResponse(
     override val status: State,
     override val message: String,
-    val articles: Article? = null
+    val articles: List<Article> = emptyList()
 ) : BaseResponse {
     companion object {
         fun unauthorized(message: String) = ArticleResponse(
@@ -20,7 +20,7 @@ data class ArticleResponse(
             message
         )
 
-        fun success(articles: Article) = ArticleResponse(
+        fun success(articles: List<Article>) = ArticleResponse(
             State.SUCCESS,
             "Successful",
             articles

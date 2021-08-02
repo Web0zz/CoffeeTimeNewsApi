@@ -8,7 +8,7 @@ data class Article(
     val title: String,
     val body: String,
     val writer: String,
-    val article_category: String,
+    var article_category: String,
     val publish_time: String,
     val writer_image: String,
     val article_image: String

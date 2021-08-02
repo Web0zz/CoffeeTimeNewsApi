@@ -6,7 +6,7 @@ import io.ktor.client.request.*
 import io.ktor.utils.io.core.use
 
 class ArticleDatasource {
-    suspend fun getArticle(): Article {
+    suspend fun getArticle(): List<Article> {
         HttpClient().use { client ->
             return client.get("https://ktor.io/")
         }
