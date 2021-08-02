@@ -28,6 +28,11 @@ dependencies {
     implementation("io.ktor:ktor-serialization:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
 
+    // Ktor - Client
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
+
+
     // Logging
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
