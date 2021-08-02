@@ -3,7 +3,7 @@ package com.web0zz.model.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AuthResponse (
+data class AuthResponse(
     override val status: State,
     override val message: String,
     val token: String? = null

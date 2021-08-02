@@ -7,7 +7,7 @@ import org.kodein.db.find
 import org.kodein.db.useModels
 import org.kodein.memory.util.UUID
 
-class UserDao(private val db: DB){
+class UserDao(private val db: DB) {
 
     fun addUser(username: String, password: String): User {
         val user = User(
@@ -23,7 +23,7 @@ class UserDao(private val db: DB){
     fun isUsernameAvailable(username: String): Boolean {
         db.find<User>().all().useModels {
             it.forEach { user ->
-                if(user.username == username) return true
+                if (user.username == username) return true
             }
         }
         return false
@@ -36,7 +36,7 @@ class UserDao(private val db: DB){
     fun getByUsernameAndPassword(username: String, password: String): User? {
         db.find<User>().all().useModels {
             it.forEach { user ->
-                if(user.username == username && user.password == password.hash()) return user
+                if (user.username == username && user.password == password.hash()) return user
             }
         }
         return null

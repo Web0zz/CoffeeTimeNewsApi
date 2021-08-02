@@ -4,11 +4,9 @@ import com.web0zz.features.article.data.remote.service.generator_url
 import com.web0zz.features.article.domain.ArticleController
 import com.web0zz.features.article.presentation.route.registerArticleRoute
 import com.web0zz.features.auth.domain.AuthController
-import io.ktor.application.*
-import com.web0zz.plugins.*
 import com.web0zz.features.auth.presentation.route.registerAuthRoutes
-import io.ktor.features.*
-import io.ktor.http.*
+import com.web0zz.plugins.*
+import io.ktor.application.*
 import org.koin.ktor.ext.inject
 
 fun main(args: Array<String>): Unit =

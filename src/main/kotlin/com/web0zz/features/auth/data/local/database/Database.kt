@@ -10,6 +10,7 @@ import org.kodein.db.orm.kotlinx.KotlinxSerializer
 val AuthDatabase = initDatabase()
 
 private fun initDatabase(): DB =
-    DB.open(DB_PATH,
+    DB.open(
+        DB_PATH,
         TypeTable { root<User>() }, KotlinxSerializer()
     )

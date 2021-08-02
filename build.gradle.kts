@@ -8,6 +8,15 @@ plugins {
     application
     kotlin("jvm") version "1.5.21"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.5.21"
+    id("org.jlleitschuh.gradle.ktlint-idea") version "10.1.0"
+    id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
+}
+
+ktlint {
+    debug.set(true)
+    verbose.set(true)
+    outputToConsole.set(true)
+    outputColorName.set("RED")
 }
 
 group = "com.web0zz"
@@ -21,6 +30,7 @@ repositories {
 }
 
 dependencies {
+
     // Ktor
     implementation("io.ktor:ktor-server-core:$ktor_version")
     implementation("io.ktor:ktor-auth:$ktor_version")
@@ -31,7 +41,6 @@ dependencies {
     // Ktor - Client
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("io.ktor:ktor-client-cio:$ktor_version")
-
 
     // Logging
     implementation("ch.qos.logback:logback-classic:$logback_version")

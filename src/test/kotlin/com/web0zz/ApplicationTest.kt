@@ -40,7 +40,7 @@ class ApplicationTest {
      */
     @Test
     fun whenRegistrationSuccessful_shouldBeAbleToLogin() = testApplication {
-        val authRequest = AuthRequest("test12356","test12345").toJson()
+        val authRequest = AuthRequest("test12356", "test12345").toJson()
         post("/auth/register", authRequest).let { response ->
             val body: AuthResponse = response.content.toModel()
 
@@ -73,7 +73,7 @@ class ApplicationTest {
 
     @Test
     fun whenPassedUsernameAlreadyExists_responseStateShouldBeFailed() = testApplication {
-        val authRequest =  AuthRequest("test123","test12345").toJson()
+        val authRequest = AuthRequest("test123", "test12345").toJson()
         post("/auth/register", authRequest)
 
         post("/auth/register", authRequest).content.toModel<AuthResponse>().let { response ->
@@ -138,7 +138,7 @@ class ApplicationTest {
      */
     @Test
     fun whenPassedInvalidCredentials_responseStateShouldBeUnauthorized() = testApplication {
-        post("/auth/login", AuthRequest("notExists","qwerty123").toJson()).content.toModel<AuthResponse>().let { response ->
+        post("/auth/login", AuthRequest("notExists", "qwerty123").toJson()).content.toModel<AuthResponse>().let { response ->
             Assert.assertEquals(State.UNAUTHORIZED, response.status)
             Assert.assertEquals("Invalid credentials", response.message)
             Assert.assertEquals(null, response.token)
@@ -151,7 +151,7 @@ class ApplicationTest {
     }
 
     private fun testApplication(test: TestApplicationEngine.() -> Unit) {
-        withTestApplication (
+        withTestApplication(
             {
                 (environment.config as MapApplicationConfig).apply {
                     put("jwt.secret", UUID.randomUUID().toString())

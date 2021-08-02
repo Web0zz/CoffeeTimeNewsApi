@@ -2,9 +2,9 @@ package com.web0zz.features.auth.domain
 
 import com.web0zz.config.JwtConfig
 import com.web0zz.features.auth.data.local.dao.UserDao
-import com.web0zz.model.response.AuthResponse
 import com.web0zz.model.exception.BadRequestException
 import com.web0zz.model.exception.UnAuthorizedAccessException
+import com.web0zz.model.response.AuthResponse
 import com.web0zz.utils.isAlphaNumeric
 
 class AuthController(private val userDao: UserDao) {
@@ -15,7 +15,7 @@ class AuthController(private val userDao: UserDao) {
         return try {
             validateCredentials(username, password)
 
-            if(userDao.isUsernameAvailable(username)) {
+            if (userDao.isUsernameAvailable(username)) {
                 throw BadRequestException("Username is not available")
             }
 
