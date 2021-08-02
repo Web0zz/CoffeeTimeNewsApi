@@ -4,6 +4,7 @@ import com.web0zz.ConfigUtil
 import com.web0zz.config.JwtConfig
 import com.web0zz.features.auth.data.local.dao.UserDao
 import com.web0zz.features.auth.data.local.database.AuthDatabase
+import com.web0zz.features.auth.data.local.util.KeyProvider
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.auth.jwt.*
@@ -12,6 +13,7 @@ import org.kodein.db.DB
 fun Application.configureJWT(db: DB = AuthDatabase) {
     with(ConfigUtil(environment.config)) {
         JwtConfig.initialize(SECRET_KEY)
+        KeyProvider.initialize(SECRET_KEY)
     }
 
     install(Authentication) {

@@ -10,11 +10,6 @@ data class ArticleResponse(
     val articles: List<Article> = emptyList()
 ) : BaseResponse {
     companion object {
-        fun unauthorized(message: String) = ArticleResponse(
-            State.UNAUTHORIZED,
-            message
-        )
-
         fun failed(message: String) = ArticleResponse(
             State.FAILED,
             message

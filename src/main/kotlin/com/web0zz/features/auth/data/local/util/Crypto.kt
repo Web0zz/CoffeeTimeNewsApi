@@ -1,10 +1,24 @@
 package com.web0zz.features.auth.data.local.util
 
-import java.security.MessageDigest
+import io.ktor.util.*
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 
 fun String.hash(): String {
-    val bytes = this.toByteArray()
-    val md = MessageDigest.getInstance("SHA-256")
-    val digest = md.digest(bytes)
-    return digest.fold("") { str, it -> str + "%02x".format(it) }
+    val hmac = Mac.getInstance(KeyProvider.ALGORITHM)
+    hmac.init(KeyProvider.hmacKey)
+    return hex(hmac.doFinal(this.toByteArray(Charsets.UTF_8)))
+}
+
+object KeyProvider {
+    lateinit var hmacKey: SecretKeySpec
+        private set
+
+    fun initialize(secret: String) {
+        if (!this::hmacKey.isInitialized) {
+            hmacKey = SecretKeySpec(secret.toByteArray(), ALGORITHM)
+        }
+    }
+
+    const val ALGORITHM = "HmacSHA256"
 }
