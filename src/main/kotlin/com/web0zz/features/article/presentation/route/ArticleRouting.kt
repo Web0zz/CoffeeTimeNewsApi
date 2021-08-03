@@ -1,6 +1,7 @@
 package com.web0zz.features.article.presentation.route
 
 import com.web0zz.features.article.domain.ArticleController
+import com.web0zz.model.exception.BadRequestException
 import com.web0zz.model.exception.FailMessage
 import com.web0zz.model.exception.UnAuthorizedAccessException
 import com.web0zz.model.response.generateHttpResponse
@@ -19,8 +20,9 @@ fun Route.articleRoute(articleController: ArticleController) {
 
     route("/article") {
         authenticate {
-            get("/{category}") {
-                val category = call.parameters["category"] ?: return@get
+            get("/{category?}") {
+                val category = call.parameters["category"] ?: throw BadRequestException(FailMessage.MESSAGE_MISSING_ARTICLE_CATEGORY)
+                if (category.isBlank()) throw BadRequestException(FailMessage.MESSAGE_MISSING_ARTICLE_CATEGORY)
                 call.principal<UserIdPrincipal>()
                     ?: throw UnAuthorizedAccessException(FailMessage.MESSAGE_ACCESS_DENIED)
 

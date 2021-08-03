@@ -3,6 +3,7 @@ package com.web0zz
 import com.web0zz.features.article.data.remote.service.generator_url
 import com.web0zz.features.article.domain.ArticleController
 import com.web0zz.features.article.presentation.route.registerArticleRoute
+import com.web0zz.features.auth.data.local.database.testing
 import com.web0zz.features.auth.domain.AuthController
 import com.web0zz.features.auth.presentation.route.registerAuthRoutes
 import com.web0zz.plugins.*
@@ -16,6 +17,7 @@ fun main(args: Array<String>): Unit =
 fun Application.module() {
     with(ConfigUtil(environment.config)) {
         generator_url = API_URL
+        testing = TEST_STATE.toBoolean()
     }
 
     // Configures

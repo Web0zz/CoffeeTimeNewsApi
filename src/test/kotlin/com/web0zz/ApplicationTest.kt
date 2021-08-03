@@ -1,46 +1,29 @@
 package com.web0zz
 
-import com.web0zz.features.auth.data.local.model.User
+import com.web0zz.model.exception.BadRequestException
+import com.web0zz.model.exception.FailMessage
 import com.web0zz.model.request.AuthRequest
+import com.web0zz.model.response.ArticleResponse
 import com.web0zz.model.response.AuthResponse
 import com.web0zz.model.response.State
+import com.web0zz.util.get
 import com.web0zz.util.post
 import com.web0zz.util.toJson
 import com.web0zz.util.toModel
 import io.ktor.config.*
 import io.ktor.server.testing.*
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
-import org.kodein.db.*
-import org.kodein.db.inmemory.inMemory
-import org.kodein.db.orm.kotlinx.KotlinxSerializer
+import org.junit.*
 import org.kodein.memory.util.UUID
 
 class ApplicationTest {
-    private fun createDatabase(factory: DBFactory<DB>, dir: String): DB =
-        factory.open(
-            "$dir/test-db",
-            KotlinxSerializer(),
-            TypeTable {
-                root<User>()
-            }
-        )
-
-    private lateinit var db: DB
-
-    @Before
-    fun setup() {
-        db = createDatabase(DB.inMemory, "fake")
-    }
 
     /**
+     *  Testing Article Route
      *  Successful State
      */
     @Test
     fun whenRegistrationSuccessful_shouldBeAbleToLogin() = testApplication {
-        val authRequest = AuthRequest("test12356", "test12345").toJson()
+        val authRequest = AuthRequest("test123456", "test123456").toJson()
         post("/auth/register", authRequest).let { response ->
             val body: AuthResponse = response.content.toModel()
 
@@ -62,7 +45,7 @@ class ApplicationTest {
      *  Failed State
      */
     @Test
-    fun whenPassedInvalidUserCredentials_responseStateShouldBeFailed() = testApplication {
+    fun whenProvidedInvalidUserCredentials_responseStateShouldBeFailed() = testApplication {
         post("/auth/register", AuthRequest("test1", "test1").toJson()).let { response ->
             val body: AuthResponse = response.content.toModel()
 
@@ -72,7 +55,7 @@ class ApplicationTest {
     }
 
     @Test
-    fun whenPassedUsernameAlreadyExists_responseStateShouldBeFailed() = testApplication {
+    fun whenProvidedUsernameAlreadyExists_responseStateShouldBeFailed() = testApplication {
         val authRequest = AuthRequest("test123", "test12345").toJson()
         post("/auth/register", authRequest)
 
@@ -137,7 +120,7 @@ class ApplicationTest {
      *  Unauthorized State
      */
     @Test
-    fun whenPassedInvalidCredentials_responseStateShouldBeUnauthorized() = testApplication {
+    fun whenProvidedInvalidCredentials_responseStateShouldBeUnauthorized() = testApplication {
         post("/auth/login", AuthRequest("notExists", "qwerty123").toJson()).content.toModel<AuthResponse>().let { response ->
             Assert.assertEquals(State.UNAUTHORIZED, response.status)
             Assert.assertEquals("Invalid credentials", response.message)
@@ -145,16 +128,73 @@ class ApplicationTest {
         }
     }
 
-    @After
-    fun cleanup() {
-        db.close()
+    /**
+     *  Exception
+     */
+    @Test
+    fun whenProvidedInvalidAuthBody_shouldThrowException() = testApplication {
+        try {
+            post("/auth/register", null)
+            Assert.assertEquals(false, true)
+        } catch (b: BadRequestException) {
+            Assert.assertEquals(FailMessage.MESSAGE_MISSING_USER_CREDENTIALS, b.message)
+        }
+
+        try {
+            post("/auth/login", null)
+            Assert.assertEquals(false, true)
+        } catch (b: BadRequestException) {
+            Assert.assertEquals(FailMessage.MESSAGE_MISSING_USER_CREDENTIALS, b.message)
+        }
     }
+
+    /**
+     *  Testing Article Route
+     */
+    @Test
+    fun whenAuthorizationTokenIsNotProvided_responseStateShouldBeUnauthorized() = testApplication {
+        val article = get("/article/health").content ?: ""
+        Assert.assertEquals(true, article.contains("UNAUTHORIZED"))
+    }
+
+    @Test
+    fun whenProvidedInvalidArticleCategory_shouldThrowException() = testApplication {
+        val token = post(
+            "/auth/register",
+            AuthRequest("user321", "passwd321").toJson()
+        ).content.toModel<AuthResponse>().token
+
+        try {
+            get("/article/", "Bearer $token")
+
+            // Checking is it successful at catching BadRequestException
+            Assert.assertEquals(false, true)
+        } catch (b: BadRequestException) {
+            Assert.assertEquals(FailMessage.MESSAGE_MISSING_ARTICLE_CATEGORY, b.message)
+        }
+    }
+
+    @Test
+    fun whenUserIsAuthenticated_shouldBeAbleToGetArticles() = testApplication {
+        val token = post(
+            "/auth/register",
+            AuthRequest("username543", "password543").toJson()
+        ).content.toModel<AuthResponse>().token
+
+        get("/article/health", "Bearer $token").content.toModel<ArticleResponse>().let { response ->
+            Assert.assertEquals(State.SUCCESS, response.status)
+            Assert.assertEquals(true, response.articles.isNotEmpty())
+        }
+    }
+
 
     private fun testApplication(test: TestApplicationEngine.() -> Unit) {
         withTestApplication(
             {
                 (environment.config as MapApplicationConfig).apply {
                     put("jwt.secret", UUID.randomUUID().toString())
+                    put("mockaroo.url", "") //TODO add mockaroo url
+                    put("sql.testing", "true")
                 }
                 module()
             },
