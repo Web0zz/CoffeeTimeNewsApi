@@ -193,7 +193,7 @@ class ApplicationTest {
             {
                 (environment.config as MapApplicationConfig).apply {
                     put("jwt.secret", UUID.randomUUID().toString())
-                    put("mockaroo.url", "") //TODO add mockaroo url
+                    put("mockaroo.url", "https://my.api.mockaroo.com/article.json?key=10ab3890")
                     put("sql.testing", "true")
                 }
                 module()

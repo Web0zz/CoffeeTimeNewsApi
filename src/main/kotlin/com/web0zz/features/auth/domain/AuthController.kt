@@ -5,7 +5,7 @@ import com.web0zz.features.auth.data.local.dao.UserDao
 import com.web0zz.model.exception.BadRequestException
 import com.web0zz.model.exception.UnAuthorizedAccessException
 import com.web0zz.model.response.AuthResponse
-import com.web0zz.utils.isAlphaNumeric
+import com.web0zz.features.auth.domain.utils.isAlphaNumeric
 
 class AuthController(private val userDao: UserDao) {
 

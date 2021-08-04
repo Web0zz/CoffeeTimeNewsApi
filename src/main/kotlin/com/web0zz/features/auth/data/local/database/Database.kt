@@ -9,19 +9,17 @@ import org.kodein.db.impl.open
 import org.kodein.db.inmemory.inMemory
 import org.kodein.db.orm.kotlinx.KotlinxSerializer
 
-var testing = false
+lateinit var AuthDatabase: DB
 
-val AuthDatabase = initDatabase()
-
-private fun initDatabase(): DB {
-    return if(!testing) {
-        DB.open(
-            DB_PATH,
+fun initDatabase(testing: Boolean) {
+    AuthDatabase = if(testing) {
+        DB.inMemory.open(
+            path = "test-db",
             TypeTable { root<User>() }, KotlinxSerializer()
         )
     } else {
-        DB.inMemory.open(
-            path = "test-db",
+        DB.open(
+            DB_PATH,
             TypeTable { root<User>() }, KotlinxSerializer()
         )
     }
