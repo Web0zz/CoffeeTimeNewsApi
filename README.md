@@ -3,6 +3,8 @@
 ## Overview
 That's a simple `REST API` coded only using Kotlin. This API's intended to be used for Coffee Time News Android App only. It responds to the user with an article list which is made randomly by another service (for now).
 
+This API is currently deployed on `https://coffeetimenews.herokuapp.com/` . You can try it.
+
 It deployed on Heroku. With a small configuration, it can use for small-size applications, with changing working way of Article data source and Article model class. JWT authentication will limit access who is using your app.
 
 ## Features
