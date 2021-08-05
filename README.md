@@ -56,5 +56,34 @@ TEST_STATE=false
 └── plugins                   # Ktor plugins
         └── ...
 ```
+# How to use
+You can use [/http]() file to test API calls in IntelliJ Idea after start the API.
 
+## Authentication
+### Register
+```
+POST http://localhost:8080/auth/register
+Content-Type: application/json
 
+{
+    "username": "admin123",
+    "password": "qwerty1234"
+}
+```
+### Login
+```
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin123",
+    "password": "qwerty1234"
+}
+```
+
+## Article
+```
+GET http://localhost:8080/article/{CATEGORY}
+Content-Type: application/json
+Authorization: Bearer YOUR_AUTH_TOKEN
+```
