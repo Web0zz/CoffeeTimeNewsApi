@@ -1,0 +1,6 @@
+{
+  "name": "CoffeeTimeNews API",
+  "description": "The API for CoffeeTimeNews",
+  "image": "heroku/java",
+  "addons": []
+}

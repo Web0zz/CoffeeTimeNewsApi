@@ -29,6 +29,10 @@ repositories {
     mavenCentral()
 }
 
+tasks.create("stage") {
+    dependsOn("installDist")
+}
+
 dependencies {
 
     // Ktor
