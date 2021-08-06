@@ -57,7 +57,7 @@ TEST_STATE=false
         └── ...
 ```
 # How to use :electric_plug: 
-You can use [/http]() file to test API calls in IntelliJ Idea after start the API.
+You can use [/http]() file to test API calls in IntelliJ Idea after starting the API.
 
 ## Authentication :inbox_tray:
 ### Register
