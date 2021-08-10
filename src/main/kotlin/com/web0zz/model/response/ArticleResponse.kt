@@ -22,3 +22,23 @@ data class ArticleResponse(
         )
     }
 }
+
+@Serializable
+data class DetailResponse(
+    override val status: State,
+    override val message: String,
+    val article: Article? = null
+) : BaseResponse {
+    companion object {
+        fun failed(message: String) = DetailResponse(
+            State.FAILED,
+            message
+        )
+
+        fun success(article: Article) = DetailResponse(
+            State.SUCCESS,
+            "Successful",
+            article
+        )
+    }
+}

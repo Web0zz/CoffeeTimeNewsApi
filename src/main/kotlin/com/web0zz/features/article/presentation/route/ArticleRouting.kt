@@ -31,6 +31,18 @@ fun Route.articleRoute(articleController: ArticleController) {
 
                 call.respond(response.code, response.body)
             }
+
+            get("/detail/{id?}") {
+                val id = call.parameters["id"] ?: throw BadRequestException(FailMessage.MESSAGE_MISSING_ARTICLE_ID)
+                if (id.isBlank()) throw BadRequestException(FailMessage.MESSAGE_MISSING_ARTICLE_ID)
+                call.principal<UserIdPrincipal>()
+                    ?: throw UnAuthorizedAccessException(FailMessage.MESSAGE_ACCESS_DENIED)
+
+                val articleResponse = articleController.requestArticleById(id)
+                val response = generateHttpResponse(articleResponse)
+
+                call.respond(response.code, response.body)
+            }
         }
     }
 }
