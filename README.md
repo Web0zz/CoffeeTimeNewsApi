@@ -1,7 +1,7 @@
 # CoffeeTimeNewsApi
 
 ## Overview :bookmark_tabs:
-That's a simple `REST API` coded using Kotlin. This API's intended to be used for Coffee Time News Android App only. It responds to the user with an article list which is made randomly by another service (for now).
+That's a simple `REST API` coded using Kotlin with MVC architecture design. This API's intended to be used for Coffee Time News Android App only. It responds to the user with an article list which is made randomly by another service (for now).
 
 This API is currently deployed on `https://coffeetimenews.herokuapp.com/` . You can try it.
 
@@ -12,9 +12,14 @@ It deployed on Heroku. With a small configuration, it can be used for small-size
 - Authentication: knows who is using
 - Test cases: all state tested,
 
-## Build with :paperclip: 
-- Ktor: is an application framework for building microservices, web applications, and more. so easy to use give a chance 
+## Libraries & Tools 🔨
+- Ktor: is an application framework for building microservices, web applications, and more. So easy to use give a chance 
+- Koin: A pragmatic lightweight dependency injection framework for Kotlin developers. We got tired using Dagger
 - Kodein-DB: is a Kotlin/Multiplatform embedded NoSQL database. If you can use collections, it's easy for you
+
+## Architecture 📐
+![mvc](https://user-images.githubusercontent.com/61796073/147770069-5a6c3e72-865d-426e-93c3-f985dbb713b9.png)
+
 
 ## How to Build :hammer_and_wrench:
 First of all, you need the last version of JetBrains IntelliJ Idea to build and run the server application.
