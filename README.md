@@ -1,4 +1,4 @@
-# CoffeeTimeNewsApi
+# CoffeeTimeNewsApi ☕
 
 ## Overview :bookmark_tabs:
 That's a simple `REST API` coded using Kotlin with MVC architecture design. This API's intended to be used for Coffee Time News Android App only. It responds to the user with an article list which is made randomly by another service (for now).
@@ -20,22 +20,6 @@ It deployed on Heroku. With a small configuration, it can be used for small-size
 
 ## Architecture 📐
 ![mvc](https://user-images.githubusercontent.com/61796073/147770069-5a6c3e72-865d-426e-93c3-f985dbb713b9.png)
-
-
-## How to Build :hammer_and_wrench:
-First of all, you need the last version of JetBrains IntelliJ Idea to build and run the server application.
-- Import project in IntelliJ Idea.
-- Build the project.
-- Set environment variables for the :application:run configuration as following
-```
-SECRET_KEY=YOUR_RANDOM_KEY
-API_URL=mockaroo_model_api              
-TEST_STATE=false
-```
-> Mockaroo api makes easier to create fake data if you want how to use and create api url: [Mockaroo](https://www.mockaroo.com/apis)
-> If you want to creat database to only testing test_state should be false
-- Run command `./gradlew :application:run`.
-- Type http://localhost:8080 in your browser and API will be live. You can use service like [Postman](https://www.postman.com)
 
 ## Design - File Structure :card_file_box:
 
@@ -62,6 +46,22 @@ TEST_STATE=false
 └── plugins                   # Ktor plugins
         └── ...
 ```
+
+## How to Build :hammer_and_wrench:
+First of all, you need the last version of JetBrains IntelliJ Idea to build and run the server application.
+- Import project in IntelliJ Idea.
+- Build the project.
+- Set environment variables for the :application:run configuration as following
+```
+SECRET_KEY=YOUR_RANDOM_KEY
+API_URL=mockaroo_model_api              
+TEST_STATE=false
+```
+> Mockaroo api makes easier to create fake data if you want how to use and create api url: [Mockaroo](https://www.mockaroo.com/apis)
+> If you want to creat database to only testing test_state should be false
+- Run command `./gradlew :application:run`.
+- Type http://localhost:8080 in your browser and API will be live. You can use service like [Postman](https://www.postman.com)
+
 # How to use :electric_plug: 
 You can use [/http]() file to test API calls in IntelliJ Idea after starting the API.
 
