@@ -3,14 +3,15 @@
 ## Overview :bookmark_tabs:
 That's a simple `REST API` coded using Kotlin with MVC architecture design. This API's intended to be used for Coffee Time News Android App only. It responds to the user with an article list which is made randomly by another service (for now).
 
-This API is currently deployed on `https://coffeetimenews.herokuapp.com/` . You can try it.
+This API is currently deployed on `https://coffeetimenews.herokuapp.com/` . You can try it with [Postman](https://www.postman.com).
+> If you don't know how to use Postman -> [Postman Beginner's Course](https://www.youtube.com/watch?v=VywxIQ2ZXw4)
 
 It deployed on Heroku. With a small configuration, it can be used for small-size applications, with changing working way of Article data source and Article model class. JWT authentication will limit access who is using your app.
 
 ## Features :fire:
 - Simple structure: Easily configurable
-- Authentication: knows who is using
-- Test cases: all state tested,
+- Authentication: Knows who is using
+- Test cases: All state tested,
 
 ## Libraries & Tools 🔨
 - Ktor: is an application framework for building microservices, web applications, and more. So easy to use give a chance 
@@ -66,6 +67,7 @@ You can use [/http]() file to test API calls in IntelliJ Idea after starting the
 
 ## Authentication :inbox_tray:
 ### Register
+Heroku Api Link: POST https://coffeetimenews.herokuapp.com/auth/register 
 ```
 POST http://localhost:8080/auth/register
 Content-Type: application/json
@@ -76,6 +78,7 @@ Content-Type: application/json
 }
 ```
 ### Login
+Heroku Api Link: POST https://coffeetimenews.herokuapp.com/auth/login 
 ```
 POST http://localhost:8080/auth/login
 Content-Type: application/json
@@ -87,6 +90,7 @@ Content-Type: application/json
 ```
 
 ## Article 	:outbox_tray:
+Heroku Api Link: GET https://coffeetimenews.herokuapp.com/article/{CATEGORY}
 ```
 GET http://localhost:8080/article/{CATEGORY}
 Content-Type: application/json
